@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import json
 import subprocess
-import re
 
 def update_hosts_file(hosts_info):
     hosts_file_path = '/etc/hosts'
@@ -38,7 +37,7 @@ def update_hosts_file(hosts_info):
         file.writelines(lines)
 
 def main():
-    output = subprocess.run(['multipass', 'list', '--format=json'], capture_output=True)
+    output = subprocess.run(['multipass', 'list', '--format=json'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     vms = json.loads(output.stdout)
 
     inventory = {'all': {'hosts': []}}
